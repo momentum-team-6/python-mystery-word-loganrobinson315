@@ -1,74 +1,67 @@
 file = open("words.txt", "r")
 word_list_total = file.read().upper().split()
-# print(word_list_total)
+easy_level_words = []
+normal_level_words = []
+hard_level_words = []
+
+for word in word_list_total:
+    if len(word) >= 4 and len(word) <= 6:
+        easy_level_words.append(word)
+    if len(word) >= 6 and len(word) <= 8:
+        normal_level_words.append(word)
+    if len(word) >= 8:
+        hard_level_words.append(word)
 
 
-# def easy_level(words):
-#     easy_level_words = []
-#     for word in words:
-#         if len(word) >= 4 and len(word) <= 6:
-#             easy_level_words.append(word)
-#         # return easy_level_words
-#         print(easy_level_words)
-# easy_level(word_list_total)
+difficulty = input('Welcome to the game! Choose difficulty: easy, normal, or hard: ')
 
-# def normal_level(words):
-#     normal_level_words = []
-#     for word in words:
-#         if len(word) >= 6 and len(word) <= 8:
-#             normal_level_words.append(word)
-#         return normal_level_words
-#         # print(easy_level_words)
-# normal_level(word_list_total)
+difficulty_selected = None
+if difficulty == "easy":
+    difficulty_selected = easy_level_words
+elif difficulty == "normal":
+    difficulty_selected = normal_level_words
+elif difficulty == "hard":
+    difficulty_selected = hard_level_words
 
-# def hard_level(words):
-#     hard_level_words = []
-#     for word in words:
-#         if len(word) >= 8:
-#             hard_level_words.append(word)
-#         return hard_level_words
-#         # print(easy_level_words)
-# hard_level(word_list_total)
-
-
-# test_word = ['CAT']
-
-# display_word = []
-
-
-# def gameplay(test_word)
-#     while display_word != test_word:
-#         guess = input('enter your guess: ')
-#         display_word=[]
-
-test_word = 'KEEP'
+import random
+test_word = random.choice(difficulty_selected)
 test_word_list = [letter for letter in test_word]
-guess = 'K'
 max_guesses = 8
-tries = 0
-display_word = ['_','_','_','_']
-#kind the location of the guess in the test_word
+display_word = ['_' for letter in range(len(test_word))]
+already_guessed = []
 
-def gameplay(test_word, guess, max_guesses):
+
+
+def gameplay(test_word, max_guesses):
+    # print(test_word)
+    print(" ".join(display_word))
+    
     guess = input('Enter your guess: ')
     if guess in test_word:
         for index in range(len(test_word)):
             if guess == test_word[index]:
                 display_word[index]=guess
+                already_guessed.append(guess)
+        return True
+
     else:
-        max_guesses -= 1
-        print(f'you have {max_guesses} guesses left')
-        
-        
-    print(display_word)
+        already_guessed.append(guess)
+        return False
 
 
 def game_loop(display_word, test_word_list, max_guesses):
+    max_guesses = 8
     while display_word != test_word_list and max_guesses >0:
-        gameplay(test_word_list, guess, max_guesses)
+        correct_guess = gameplay(test_word_list, max_guesses)
+        if not correct_guess:
+            max_guesses -=1
+            print(f'\U0001F922 you have {max_guesses} guesses left \U0001F922')
+        # elif guess in already_guessed:
+        #     print('you already guessed that')
         
     else:
         
         print('The Game is Over')
+        print(f'the correct word was {test_word}')
 game_loop(display_word, test_word_list, max_guesses)
 
