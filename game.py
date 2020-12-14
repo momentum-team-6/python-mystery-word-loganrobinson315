@@ -46,10 +46,12 @@ def gameplay(test_word, max_guesses):
             if guess == test_word[index]:
                 display_word[index]=guess
                 already_guessed.append(guess)
+                print('Correct Guess!!')
         return True
 
     else:
         already_guessed.append(guess)
+        print('Wrong answer!!!')
         print(f'Remember, you have already guessed these letters! {already_guessed}')
         return False
 
