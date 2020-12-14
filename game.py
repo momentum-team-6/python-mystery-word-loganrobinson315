@@ -46,7 +46,9 @@ def gameplay(test_word, max_guesses):
 
     else:
         already_guessed.append(guess)
+        print(f'Remember, you have already guessed these letters! {already_guessed}')
         return False
+
 
 
 def game_loop(display_word, test_word_list, max_guesses):
