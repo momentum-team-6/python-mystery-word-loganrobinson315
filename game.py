@@ -4,6 +4,7 @@ easy_level_words = []
 normal_level_words = []
 hard_level_words = []
 
+
 for word in word_list_total:
     if len(word) >= 4 and len(word) <= 6:
         easy_level_words.append(word)
@@ -12,9 +13,12 @@ for word in word_list_total:
     if len(word) >= 8:
         hard_level_words.append(word)
 
-
-difficulty = input('Welcome to the game! Choose difficulty: easy, normal, or hard: ')
-
+while True:
+    difficulty = input('Welcome to the game! Choose difficulty: easy, normal, or hard: ')
+    if difficulty != "easy" and difficulty != "normal" and difficulty != "hard":
+        continue
+    else:
+        break
 difficulty_selected = None
 if difficulty == "easy":
     difficulty_selected = easy_level_words
@@ -57,13 +61,13 @@ def game_loop(display_word, test_word_list, max_guesses):
         correct_guess = gameplay(test_word_list, max_guesses)
         if not correct_guess:
             max_guesses -=1
-            print(f'\U0001F922 you have {max_guesses} guesses left \U0001F922')
+            print(f'\U0001F922 You have {max_guesses} guesses left \U0001F922')
         # elif guess in already_guessed:
         #     print('you already guessed that')
         
     else:
         
         print('The Game is Over')
-        print(f'the correct word was {test_word}')
+        print(f'The correct word was {test_word}')
 game_loop(display_word, test_word_list, max_guesses)
 
